@@ -1,5 +1,6 @@
 package net.oneglobe.idkp.player.client;
 
+import net.oneglobe.idkp.player.service.PlayerDto;
 import java.util.List;
 import net.oneglobe.idkp.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +25,24 @@ public class PlayerRest {
     private PlayerService playerService;
 
     @RequestMapping(method = GET)
-    public List<PlayerDto> list() {
-        return (PlayerDto.fromPlayers(playerService.findAll()));
+    public List<? extends PlayerDto> list() {
+        return (playerService.findAll());
     }
 
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<PlayerDto> get(@PathVariable long id) {
-        PlayerDto playerDTO = PlayerDto.fromPlayer(playerService.findById(id));
+        PlayerDto playerDTO = playerService.findById(id);
         return (new ResponseEntity<>(playerDTO, playerDTO != null ? HttpStatus.OK : HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/{name}", method = PUT)
     public ResponseEntity<PlayerDto> put(@PathVariable String name, @RequestBody(required = false) Object input) {
-        return (new ResponseEntity<>(PlayerDto.fromPlayer(playerService.create(name)), HttpStatus.OK));
+        return (new ResponseEntity<>(playerService.create(name), HttpStatus.OK));
     }
 
     @RequestMapping(value = "/{id}/{name}", method = POST)
     public ResponseEntity<PlayerDto> post(@PathVariable long id, @PathVariable String name, @RequestBody(required = false) Object input) {
-        return (new ResponseEntity<>(PlayerDto.fromPlayer(playerService.update(id, name)), HttpStatus.OK));
+        return (new ResponseEntity<>(playerService.update(id, name), HttpStatus.OK));
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)

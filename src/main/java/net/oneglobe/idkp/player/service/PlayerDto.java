@@ -1,22 +1,19 @@
 package net.oneglobe.idkp.player.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import net.oneglobe.idkp.player.repo.PlayerEntity;
+import java.io.Serializable;
 
-public class PlayerImpl implements Player {
+public class PlayerDto implements Serializable {
 
     private final long id;
     private String name;
     private final int debuff;
 
-    public PlayerImpl() {
+    public PlayerDto() {
         this.id = -1;
         this.debuff = -1;
     }
 
-    public PlayerImpl(long id, String name, int debuff) {
+    public PlayerDto(long id, String name, int debuff) {
         this.id = id;
         this.name = name;
         this.debuff = debuff;
@@ -45,19 +42,17 @@ public class PlayerImpl implements Player {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PlayerImpl other = (PlayerImpl) obj;
+        final PlayerDto other = (PlayerDto) obj;
         if (this.id != other.id) {
             return false;
         }
         return true;
     }
 
-    @Override
     public long getId() {
         return (id);
     }
 
-    @Override
     public String getName() {
         return (name);
     }
@@ -66,18 +61,7 @@ public class PlayerImpl implements Player {
         this.name = name;
     }
 
-    @Override
     public int getDebuff() {
         return (debuff);
-    }
-
-    public static PlayerImpl fromPlayerEntity(PlayerEntity playerEntity) {
-        return (new PlayerImpl(playerEntity.getId(), playerEntity.getName(), 0));
-    }
-
-    public static List<PlayerImpl> fromPlayerEntities(Iterable<PlayerEntity> playerEntities) {
-        return (StreamSupport.stream(playerEntities.spliterator(), false)
-                .map(playerEntity -> PlayerImpl.fromPlayerEntity(playerEntity))
-                .collect(Collectors.toList()));
     }
 }

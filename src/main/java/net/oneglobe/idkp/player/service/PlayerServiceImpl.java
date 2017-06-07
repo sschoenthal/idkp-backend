@@ -1,6 +1,8 @@
 package net.oneglobe.idkp.player.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import net.oneglobe.idkp.player.client.PlayerWebSocket;
 import net.oneglobe.idkp.player.repo.PlayerEntity;
 import net.oneglobe.idkp.player.repo.PlayerRepository;
@@ -17,41 +19,51 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerRepository playerRepository;
 
     @Override
-    public List<? extends Player> findAll() {
-        return (PlayerImpl.fromPlayerEntities(playerRepository.findAll()));
+    public List<? extends PlayerDto> findAll() {
+        return (createFromEntities(playerRepository.findAll()));
     }
 
     @Override
-    public Player findById(long id) {
-        return (PlayerImpl.fromPlayerEntity(playerRepository.findOne(id)));
+    public PlayerDto findById(long id) {
+        return (createFromEntity(playerRepository.findOne(id)));
     }
 
     @Override
     public void delete(long id) {
-        PlayerImpl player = PlayerImpl.fromPlayerEntity(playerRepository.findOne(id));
+        PlayerDto player = createFromEntity(playerRepository.findOne(id));
         if (player != null) {
             playerRepository.delete(id);
-            firePlayerChanged(player, Player.Change.DELETED);
+            firePlayerChanged(player, PlayerChangeDto.Change.DELETED);
         }
     }
 
     @Override
-    public Player create(String name) {
-        return (firePlayerChanged(PlayerImpl.fromPlayerEntity(playerRepository.save(new PlayerEntity(name))), Player.Change.CREATED));
+    public PlayerDto create(String name) {
+        return (firePlayerChanged(createFromEntity(playerRepository.save(new PlayerEntity(name))), PlayerChangeDto.Change.CREATED));
     }
 
     @Override
-    public Player update(long id, String name) {
+    public PlayerDto update(long id, String name) {
         PlayerEntity playerEntity = playerRepository.findOne(id);
         if (playerEntity != null) {
             playerEntity.setName(name);
-            return(firePlayerChanged(PlayerImpl.fromPlayerEntity(playerRepository.save(playerEntity)), Player.Change.UPDATED));
+            return (firePlayerChanged(createFromEntity(playerRepository.save(playerEntity)), PlayerChangeDto.Change.UPDATED));
         }
         return (null);
     }
 
-    private Player firePlayerChanged(PlayerImpl player, Player.Change change) {
-        playerWebSocketController.firePlayerChanged(player, change);
-        return(player);
+    private PlayerDto firePlayerChanged(PlayerDto player, PlayerChangeDto.Change change) {
+        playerWebSocketController.firePlayerChanged(new PlayerChangeDto(player, change));
+        return (player);
+    }
+
+    private static PlayerDto createFromEntity(PlayerEntity playerEntity) {
+        return (new PlayerDto(playerEntity.getId(), playerEntity.getName(), 0));
+    }
+
+    private static List<PlayerDto> createFromEntities(Iterable<PlayerEntity> playerEntities) {
+        return (StreamSupport.stream(playerEntities.spliterator(), false)
+                .map(playerEntity -> createFromEntity(playerEntity))
+                .collect(Collectors.toList()));
     }
 }

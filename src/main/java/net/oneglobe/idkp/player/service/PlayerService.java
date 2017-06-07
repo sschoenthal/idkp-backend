@@ -14,7 +14,7 @@ public interface PlayerService {
      *
      * @return
      */
-    List<? extends Player> findAll();
+    List<? extends PlayerDto> findAll();
 
     /**
      * Returns a specific player or null if no such player exists.
@@ -22,7 +22,7 @@ public interface PlayerService {
      * @param id
      * @return
      */
-    Player findById(long id);
+    PlayerDto findById(long id);
 
     /**
      * Deletes a specific player.
@@ -37,7 +37,7 @@ public interface PlayerService {
      * @param name
      * @return
      */
-    Player create(String name);
+    PlayerDto create(String name);
 
     /**
      * Updates a specific player and returns the updated player or null in case
@@ -47,5 +47,5 @@ public interface PlayerService {
      * @param name
      * @return
      */
-    Player update(long id, String name);
+    PlayerDto update(long id, String name);
 }
