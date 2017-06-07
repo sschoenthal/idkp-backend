@@ -14,7 +14,7 @@ public interface PlayerService {
      *
      * @return
      */
-    List<? extends PlayerDto> findAll();
+    List<PlayerDto> findAll();
 
     /**
      * Returns a specific player or null if no such player exists.

@@ -19,7 +19,7 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerRepository playerRepository;
 
     @Override
-    public List<? extends PlayerDto> findAll() {
+    public List<PlayerDto> findAll() {
         return (createFromEntities(playerRepository.findAll()));
     }
 
