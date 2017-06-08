@@ -2351,7 +2351,7 @@ var PlayerService = (function () {
         this.players = [];
         this.playerChanged = function (message) {
             var playerChange = JSON.parse(message.body);
-            switch (playerChange.change) {
+            switch (playerChange.changeType) {
                 case "CREATED": {
                     _this.players = _this.players.concat(playerChange.player);
                     break;
@@ -2361,11 +2361,11 @@ var PlayerService = (function () {
                     for (var _i = 0, _a = _this.players; _i < _a.length; _i++) {
                         var storedPlayer = _a[_i];
                         if (playerChange.player.id === storedPlayer.id) {
-                            if (playerChange.change === "UPDATED") {
+                            if (playerChange.changeType === "UPDATED") {
                                 storedPlayer.name = playerChange.player.name;
                                 storedPlayer.debuff = playerChange.player.debuff;
                             }
-                            if (playerChange.change === "DELETED") {
+                            if (playerChange.changeType === "DELETED") {
                                 _this.players = _this.players.filter(function (storedPlayer) { return storedPlayer.id !== playerChange.player.id; });
                             }
                             break;

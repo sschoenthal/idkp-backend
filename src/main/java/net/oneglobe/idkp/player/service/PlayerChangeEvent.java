@@ -4,15 +4,21 @@ import org.springframework.context.ApplicationEvent;
 
 public class PlayerChangeEvent extends ApplicationEvent {
 
-    private final PlayerChangeDto change;
+    private final PlayerDto player;
+    private final ChangeType changeType;
 
-    public PlayerChangeEvent(Object source, PlayerChangeDto change) {
+    public PlayerChangeEvent(Object source, PlayerDto player, ChangeType changeType) {
         super(source);
-        this.change = change;
+        this.player = player;
+        this.changeType = changeType;
     }
 
-    public PlayerChangeDto getChange() {
-        return (change);
+    public ChangeType getChangeType() {
+        return (changeType);
+    }
+
+    public PlayerDto getPlayer() {
+        return (player);
     }
 
 }

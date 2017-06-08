@@ -14,6 +14,6 @@ public class PlayerWebSocket {
 
     @EventListener
     public void handlePlayerChanged(PlayerChangeEvent playerChangeEvent) {
-        template.convertAndSend("/idkp/topic/players", playerChangeEvent.getChange());
+        template.convertAndSend("/idkp/topic/players", new PlayerChangeDto(playerChangeEvent.getPlayer(), playerChangeEvent.getChangeType()));
     }
 }

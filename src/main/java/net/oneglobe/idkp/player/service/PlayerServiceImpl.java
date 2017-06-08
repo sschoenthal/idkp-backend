@@ -33,13 +33,13 @@ public class PlayerServiceImpl implements PlayerService {
         PlayerDto player = createFromEntity(playerRepository.findOne(id));
         if (player != null) {
             playerRepository.delete(id);
-            firePlayerChanged(player, PlayerChangeDto.Change.DELETED);
+            firePlayerChanged(player, ChangeType.DELETED);
         }
     }
 
     @Override
     public PlayerDto create(String name) {
-        return (firePlayerChanged(createFromEntity(playerRepository.save(new PlayerEntity(name))), PlayerChangeDto.Change.CREATED));
+        return (firePlayerChanged(createFromEntity(playerRepository.save(new PlayerEntity(name))), ChangeType.CREATED));
     }
 
     @Override
@@ -47,13 +47,13 @@ public class PlayerServiceImpl implements PlayerService {
         PlayerEntity playerEntity = playerRepository.findOne(id);
         if (playerEntity != null) {
             playerEntity.setName(name);
-            return (firePlayerChanged(createFromEntity(playerRepository.save(playerEntity)), PlayerChangeDto.Change.UPDATED));
+            return (firePlayerChanged(createFromEntity(playerRepository.save(playerEntity)), ChangeType.UPDATED));
         }
         return (null);
     }
 
-    private PlayerDto firePlayerChanged(PlayerDto player, PlayerChangeDto.Change change) {
-        applicationEventPublisher.publishEvent(new PlayerChangeEvent(this, new PlayerChangeDto(player, change)));
+    private PlayerDto firePlayerChanged(PlayerDto player, ChangeType changeType) {
+        applicationEventPublisher.publishEvent(new PlayerChangeEvent(this, player, changeType));
         return (player);
     }
 
