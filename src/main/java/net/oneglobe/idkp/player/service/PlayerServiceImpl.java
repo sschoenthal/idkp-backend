@@ -3,17 +3,17 @@ package net.oneglobe.idkp.player.service;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import net.oneglobe.idkp.player.client.PlayerWebSocket;
 import net.oneglobe.idkp.player.repo.PlayerEntity;
 import net.oneglobe.idkp.player.repo.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
-    PlayerWebSocket playerWebSocketController;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     PlayerRepository playerRepository;
@@ -53,7 +53,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     private PlayerDto firePlayerChanged(PlayerDto player, PlayerChangeDto.Change change) {
-        playerWebSocketController.firePlayerChanged(new PlayerChangeDto(player, change));
+        applicationEventPublisher.publishEvent(new PlayerChangeEvent(this, new PlayerChangeDto(player, change)));
         return (player);
     }
 
