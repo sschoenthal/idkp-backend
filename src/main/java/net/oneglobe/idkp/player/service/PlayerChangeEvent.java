@@ -1,5 +1,6 @@
 package net.oneglobe.idkp.player.service;
 
+import net.oneglobe.idkp.common.types.ChangeType;
 import org.springframework.context.ApplicationEvent;
 
 public class PlayerChangeEvent extends ApplicationEvent {

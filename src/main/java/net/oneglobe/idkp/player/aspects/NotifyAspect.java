@@ -1,5 +1,6 @@
 package net.oneglobe.idkp.player.aspects;
 
+import net.oneglobe.idkp.common.annotations.Notifyable;
 import net.oneglobe.idkp.player.service.PlayerChangeEvent;
 import net.oneglobe.idkp.player.service.PlayerDto;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -16,7 +17,7 @@ public class NotifyAspect {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    @Pointcut("@annotation(net.oneglobe.idkp.player.aspects.Notifyable)")
+    @Pointcut("@annotation(net.oneglobe.idkp.common.annotations.Notifyable)")
     public void notifyPointcut() {
     }
 

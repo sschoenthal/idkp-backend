@@ -1,9 +1,10 @@
 package net.oneglobe.idkp.player.service;
 
+import net.oneglobe.idkp.common.types.ChangeType;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import net.oneglobe.idkp.player.aspects.Notifyable;
+import net.oneglobe.idkp.common.annotations.Notifyable;
 import net.oneglobe.idkp.player.repo.PlayerEntity;
 import net.oneglobe.idkp.player.repo.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
