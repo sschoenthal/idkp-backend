@@ -25,11 +25,13 @@ public interface PlayerService {
     PlayerDto findById(long id);
 
     /**
-     * Deletes a specific player.
+     * Deletes a specific player and returns the deleted player or null in case
+     * the player didn't exist.
      *
      * @param id
+     * @return
      */
-    void delete(long id);
+    PlayerDto delete(long id);
 
     /**
      * Creates a new player and returns the created player.

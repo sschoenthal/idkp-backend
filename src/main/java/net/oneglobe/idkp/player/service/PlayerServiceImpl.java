@@ -3,17 +3,14 @@ package net.oneglobe.idkp.player.service;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import net.oneglobe.idkp.player.aspects.Notifyable;
 import net.oneglobe.idkp.player.repo.PlayerEntity;
 import net.oneglobe.idkp.player.repo.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
-
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
     PlayerRepository playerRepository;
@@ -29,32 +26,30 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void delete(long id) {
+    @Notifyable(changeType = ChangeType.DELETED)
+    public PlayerDto delete(long id) {
         PlayerDto player = createFromEntity(playerRepository.findOne(id));
         if (player != null) {
             playerRepository.delete(id);
-            firePlayerChanged(player, ChangeType.DELETED);
         }
+        return (player);
     }
 
     @Override
+    @Notifyable(changeType = ChangeType.CREATED)
     public PlayerDto create(String name) {
-        return (firePlayerChanged(createFromEntity(playerRepository.save(new PlayerEntity(name))), ChangeType.CREATED));
+        return (createFromEntity(playerRepository.save(new PlayerEntity(name))));
     }
 
     @Override
+    @Notifyable(changeType = ChangeType.UPDATED)
     public PlayerDto update(long id, String name) {
         PlayerEntity playerEntity = playerRepository.findOne(id);
         if (playerEntity != null) {
             playerEntity.setName(name);
-            return (firePlayerChanged(createFromEntity(playerRepository.save(playerEntity)), ChangeType.UPDATED));
+            return (createFromEntity(playerRepository.save(playerEntity)));
         }
         return (null);
-    }
-
-    private PlayerDto firePlayerChanged(PlayerDto player, ChangeType changeType) {
-        applicationEventPublisher.publishEvent(new PlayerChangeEvent(this, player, changeType));
-        return (player);
     }
 
     private static PlayerDto createFromEntity(PlayerEntity playerEntity) {
