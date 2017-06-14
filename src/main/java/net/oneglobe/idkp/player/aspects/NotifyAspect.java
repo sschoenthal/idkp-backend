@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component//[TODO]not sure why this one is required. If it's not present, the aspect seems to be ignored
+@Component//[TODO] not sure why this one is required. If it's not present, the aspect seems to be ignored
 public class NotifyAspect {
 
     @Autowired

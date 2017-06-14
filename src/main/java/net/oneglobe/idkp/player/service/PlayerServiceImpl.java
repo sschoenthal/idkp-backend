@@ -27,7 +27,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @Notifyable(changeType = ChangeType.DELETED)
+    @Notifyable(changeType = ChangeType.REMOVED)
     public PlayerDto delete(long id) {
         PlayerDto player = createFromEntity(playerRepository.findOne(id));
         if (player != null) {
