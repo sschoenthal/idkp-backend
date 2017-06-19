@@ -1,9 +1,9 @@
 package net.oneglobe.idkp.player.service;
 
-import net.oneglobe.idkp.common.types.ChangeType;
-import net.oneglobe.idkp.common.annotations.Notifyable;
-import net.oneglobe.idkp.player.repo.PlayerEntity;
-import net.oneglobe.idkp.player.repo.PlayerRepository;
+import net.oneglobe.idkp.common.type.ChangeType;
+import net.oneglobe.idkp.common.annotation.Notifyable;
+import net.oneglobe.idkp.player.repository.PlayerEntity;
+import net.oneglobe.idkp.player.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

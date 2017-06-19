@@ -1,4 +1,4 @@
-package net.oneglobe.idkp.player.repo;
+package net.oneglobe.idkp.player.repository;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

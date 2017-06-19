@@ -1,6 +1,6 @@
 package net.oneglobe.idkp.player.client;
 
-import net.oneglobe.idkp.common.types.ChangeType;
+import net.oneglobe.idkp.common.type.ChangeType;
 import net.oneglobe.idkp.player.service.PlayerDto;
 
 public class PlayerChangeDto {

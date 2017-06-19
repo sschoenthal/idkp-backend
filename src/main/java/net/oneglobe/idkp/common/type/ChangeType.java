@@ -1,4 +1,4 @@
-package net.oneglobe.idkp.common.types;
+package net.oneglobe.idkp.common.type;
 
 public enum ChangeType {
     CREATED,
