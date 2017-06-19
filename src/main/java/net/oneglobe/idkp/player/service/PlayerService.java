@@ -1,6 +1,7 @@
 package net.oneglobe.idkp.player.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Provides methods to access and manage players within the system.
@@ -10,11 +11,13 @@ import java.util.List;
 public interface PlayerService {
 
     /**
-     * Returns a list containing all players available in the system.
+     * Returns a page containing a list of players according to the pageable
+     * parameter.
      *
+     * @param pageable
      * @return
      */
-    List<PlayerDto> findAll();
+    Page<PlayerDto> findAll(Pageable pageable);
 
     /**
      * Returns a specific player or null if no such player exists.

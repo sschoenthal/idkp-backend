@@ -1,7 +1,7 @@
 package net.oneglobe.idkp.player.repo;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface PlayerRepository extends CrudRepository<PlayerEntity, Long> {
+public interface PlayerRepository extends PagingAndSortingRepository<PlayerEntity, Long> {
 
 }

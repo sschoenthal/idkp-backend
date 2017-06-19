@@ -1,13 +1,12 @@
 package net.oneglobe.idkp.player.service;
 
 import net.oneglobe.idkp.common.types.ChangeType;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import net.oneglobe.idkp.common.annotations.Notifyable;
 import net.oneglobe.idkp.player.repo.PlayerEntity;
 import net.oneglobe.idkp.player.repo.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,8 +16,8 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerRepository playerRepository;
 
     @Override
-    public List<PlayerDto> findAll() {
-        return (createFromEntities(playerRepository.findAll()));
+    public Page<PlayerDto> findAll(Pageable pageable) {
+        return (createFromEntities(playerRepository.findAll(pageable)));
     }
 
     @Override
@@ -53,13 +52,11 @@ public class PlayerServiceImpl implements PlayerService {
         return (null);
     }
 
-    private static PlayerDto createFromEntity(PlayerEntity playerEntity) {
+    private PlayerDto createFromEntity(PlayerEntity playerEntity) {
         return (new PlayerDto(playerEntity.getId(), playerEntity.getName(), 0));
     }
 
-    private static List<PlayerDto> createFromEntities(Iterable<PlayerEntity> playerEntities) {
-        return (StreamSupport.stream(playerEntities.spliterator(), false)
-                .map(playerEntity -> createFromEntity(playerEntity))
-                .collect(Collectors.toList()));
+    private Page<PlayerDto> createFromEntities(Page<PlayerEntity> playerEntitiesPage) {
+        return (playerEntitiesPage.map(this::createFromEntity));
     }
 }
