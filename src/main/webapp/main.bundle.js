@@ -2919,17 +2919,17 @@ var PlayerService = (function () {
             var playerChange = JSON.parse(message.body);
             switch (playerChange.changeType) {
                 case "CREATED": {
-                    _this.addPlayerToSubject(playerChange.player);
+                    _this.addPlayerToSubject(playerChange.entity);
                     _this.pagination.getValue().totalElements.next(_this.pagination.getValue().totalElements.getValue() + 1);
                     _this.pagination.getValue().pageElements.next(_this.players.getValue().length);
                     break;
                 }
                 case "UPDATED": {
-                    _this.updatePlayerInSubject(playerChange.player);
+                    _this.updatePlayerInSubject(playerChange.entity);
                     break;
                 }
                 case "REMOVED": {
-                    _this.removePlayerFromSubject(playerChange.player);
+                    _this.removePlayerFromSubject(playerChange.entity);
                     _this.pagination.getValue().totalElements.next(_this.pagination.getValue().totalElements.getValue() - 1);
                     _this.pagination.getValue().pageElements.next(_this.players.getValue().length);
                     break;

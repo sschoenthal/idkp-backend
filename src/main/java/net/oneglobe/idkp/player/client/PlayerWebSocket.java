@@ -1,6 +1,8 @@
 package net.oneglobe.idkp.player.client;
 
-import net.oneglobe.idkp.player.service.PlayerChangeEvent;
+import net.oneglobe.idkp.common.client.notify.ChangeDto;
+import net.oneglobe.idkp.common.client.notify.ChangeEvent;
+import net.oneglobe.idkp.player.service.PlayerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,7 +15,7 @@ public class PlayerWebSocket {
     private SimpMessagingTemplate template;
 
     @EventListener
-    public void handlePlayerChanged(PlayerChangeEvent playerChangeEvent) {
-        template.convertAndSend("/idkp/topic/players", new PlayerChangeDto(playerChangeEvent.getPlayer(), playerChangeEvent.getChangeType()));
+    public void handlePlayerChanged(ChangeEvent<PlayerDto> playerChangeEvent) {
+        template.convertAndSend("/idkp/topic/players", new ChangeDto(playerChangeEvent.getEntity(), playerChangeEvent.getChangeType()));
     }
 }

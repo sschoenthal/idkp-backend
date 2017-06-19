@@ -1,7 +1,6 @@
 package net.oneglobe.idkp.player.service;
 
-import net.oneglobe.idkp.common.type.ChangeType;
-import net.oneglobe.idkp.common.annotation.Notifyable;
+import net.oneglobe.idkp.common.client.notify.Notifyable;
 import net.oneglobe.idkp.player.repository.PlayerEntity;
 import net.oneglobe.idkp.player.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @Notifyable(changeType = ChangeType.REMOVED)
+    @Notifyable(changeType = Notifyable.ChangeType.REMOVED)
     public PlayerDto delete(long id) {
         PlayerDto player = createFromEntity(playerRepository.findOne(id));
         if (player != null) {
@@ -36,13 +35,13 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    @Notifyable(changeType = ChangeType.CREATED)
+    @Notifyable(changeType = Notifyable.ChangeType.CREATED)
     public PlayerDto create(String name) {
         return (createFromEntity(playerRepository.save(new PlayerEntity(name))));
     }
 
     @Override
-    @Notifyable(changeType = ChangeType.UPDATED)
+    @Notifyable(changeType = Notifyable.ChangeType.UPDATED)
     public PlayerDto update(long id, String name) {
         PlayerEntity playerEntity = playerRepository.findOne(id);
         if (playerEntity != null) {
