@@ -1,9 +1,9 @@
 package net.oneglobe.idkp.player.service;
 
 import java.io.Serializable;
-import net.oneglobe.idkp.common.client.notify.EntityDto;
+import net.oneglobe.idkp.common.notify.client.Notifyable;
 
-public class PlayerDto extends EntityDto implements Serializable {
+public class PlayerDto implements Notifyable, Serializable {
 
     private final long id;
     private String name;

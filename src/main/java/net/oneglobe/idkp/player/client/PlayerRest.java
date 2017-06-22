@@ -1,5 +1,7 @@
 package net.oneglobe.idkp.player.client;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.oneglobe.idkp.player.service.PlayerDto;
 import net.oneglobe.idkp.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -50,6 +53,19 @@ public class PlayerRest {
     public ResponseEntity<Object> delete(@PathVariable long id) {
         playerService.delete(id);
         return (new ResponseEntity<>(null, HttpStatus.OK));
+    }
+    
+    @RequestMapping(value = "/createData", method = RequestMethod.GET)
+    public void createData() {
+        long start = System.currentTimeMillis()/1000;
+        for(long i=start;i<=(start + 1000);i++){
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PlayerRest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            playerService.create("a" + i);
+        }
     }
 
 }

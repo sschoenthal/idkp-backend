@@ -1,4 +1,4 @@
-package net.oneglobe.idkp.common.client.notify;
+package net.oneglobe.idkp.common.notify.client;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,13 +14,13 @@ public class NotifyAspect {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    @Pointcut("@annotation(net.oneglobe.idkp.common.client.notify.Notifyable)")
+    @Pointcut("@annotation(NotifyChange)")
     public void notifyPointcut() {
     }
 
-    @AfterReturning(pointcut = "execution(public net.oneglobe.idkp.common.client.notify.EntityDto+ net.oneglobe.idkp.*.service.*.*(..)) && notifyPointcut() && @annotation(notifyable)", returning = "entityDto")
-    public void notify(Notifyable notifyable, EntityDto entityDto) {
-        applicationEventPublisher.publishEvent(new ChangeEvent(this, entityDto, notifyable.changeType()));
+    @AfterReturning(pointcut = "execution(public Notifyable+ net.oneglobe.idkp.*.service.*.*(..)) && notifyPointcut() && @annotation(notifyChange)", returning = "notifyable")
+    public void notify(NotifyChange notifyChange, Notifyable notifyable) {
+        applicationEventPublisher.publishEvent(new ChangeEvent(this, notifyable, notifyChange.type()));
     }
 
 }

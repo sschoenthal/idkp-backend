@@ -1,4 +1,4 @@
-package net.oneglobe.idkp.common.client.notify;
+package net.oneglobe.idkp.common.notify.client;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,13 +7,13 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Notifyable {
+public @interface NotifyChange {
 
-    public enum ChangeType{
+    public enum Type {
         CREATED,
         REMOVED,
         UPDATED
     }
-    
-    ChangeType changeType();
+
+    Type type();
 }
