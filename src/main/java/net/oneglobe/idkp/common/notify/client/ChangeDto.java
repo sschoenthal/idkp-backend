@@ -1,19 +1,19 @@
 package net.oneglobe.idkp.common.notify.client;
 
 /**
- * A generic Dto to be used in order to notify a notifyable element along with
+ * A generic Dto to be used in order to notify an element along with
  * the change type.
  *
  * @author Stefan Schönthal
  * @param <T>
  */
-public class ChangeDto<T extends Notifyable> {
+public class ChangeDto<T> {
 
     private final T notifyable;
     private final NotifyChange.Type changeType;
 
     /**
-     * Constructs a new ChangeDto using provided notifyable element and the
+     * Constructs a new ChangeDto using provided element and the
      * respective change type.
      *
      * @param notifyable
@@ -25,7 +25,7 @@ public class ChangeDto<T extends Notifyable> {
     }
 
     /**
-     * The notifyable element for which a change has happened.
+     * The element for which a change has happened.
      *
      * @return
      */
@@ -34,7 +34,7 @@ public class ChangeDto<T extends Notifyable> {
     }
 
     /**
-     * The type of change which happened to the notifyable element.
+     * The type of change which happened to the element.
      *
      * @return
      */

@@ -5,7 +5,7 @@ import org.springframework.core.ResolvableType;
 import org.springframework.core.ResolvableTypeProvider;
 
 /**
- * ApplicationEvent to notify changes of notifyable elements. This event is
+ * ApplicationEvent to notify changes for elements. This event is
  * published using an ApplicationEventPublisher. Services using the notification
  * facilities are required to implement an EventListener (matching
  * ChangeEvent<T>) in order to receive the respective events.
@@ -13,13 +13,13 @@ import org.springframework.core.ResolvableTypeProvider;
  * @author Stefan Schönthal
  * @param <T> Type of element
  */
-public class ChangeEvent<T extends Notifyable> extends ApplicationEvent implements ResolvableTypeProvider {
+public class ChangeEvent<T> extends ApplicationEvent implements ResolvableTypeProvider {
 
     private final T notifyable;
     private final NotifyChange.Type type;
 
     /**
-     * Constructs a new ChangeEvent using provided event source, notifyable
+     * Constructs a new ChangeEvent using provided event source,
      * element and the respective change type.
      *
      * @param source
@@ -33,7 +33,7 @@ public class ChangeEvent<T extends Notifyable> extends ApplicationEvent implemen
     }
 
     /**
-     * The type of change which happened to the notifyable element.
+     * The type of change which happened to the element.
      *
      * @return
      */
@@ -42,7 +42,7 @@ public class ChangeEvent<T extends Notifyable> extends ApplicationEvent implemen
     }
 
     /**
-     * The notifyable element for which a change has happened.
+     * The element for which a change has happened.
      *
      * @return
      */

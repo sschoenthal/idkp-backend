@@ -21,15 +21,15 @@ public @interface NotifyChange {
     public enum Type {
 
         /**
-         * The element marked by the notifyable interfaces was created
+         * The element was created
          */
         CREATED,
         /**
-         * The element marked by the notifyable interfaces was deleted
+         * The element was deleted
          */
         REMOVED,
         /**
-         * The element marked by the notifyable interfaces was updated
+         * The element was updated
          */
         UPDATED
     }
