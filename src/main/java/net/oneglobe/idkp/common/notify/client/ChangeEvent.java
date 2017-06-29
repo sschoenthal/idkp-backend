@@ -51,7 +51,7 @@ public class ChangeEvent<T> extends ApplicationEvent implements ResolvableTypePr
     }
 
     /**
-     * Type resolving helper method so spring can determing runtime types for
+     * Type resolving helper method so spring can determine runtime types for
      * classes with generics.
      *
      * @return

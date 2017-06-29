@@ -35,30 +35,35 @@ public class PlayerRest {
 
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<PlayerDto> get(@PathVariable long id) {
-        PlayerDto playerDTO = playerService.findById(id);
-        return (new ResponseEntity<>(playerDTO, playerDTO != null ? HttpStatus.OK : HttpStatus.NOT_FOUND));
+        return (getResponseEntity(playerService.findById(id)));
     }
 
     @RequestMapping(value = "/{name}", method = PUT)
     public ResponseEntity<PlayerDto> put(@PathVariable String name, @RequestBody(required = false) Object input) {
-        return (new ResponseEntity<>(playerService.create(name), HttpStatus.OK));
+        return (getResponseEntity(playerService.create(name)));
     }
 
     @RequestMapping(value = "/{id}/{name}", method = POST)
     public ResponseEntity<PlayerDto> post(@PathVariable long id, @PathVariable String name, @RequestBody(required = false) Object input) {
-        return (new ResponseEntity<>(playerService.update(id, name), HttpStatus.OK));
+        return (getResponseEntity(playerService.update(id, name)));
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)
-    public ResponseEntity<Object> delete(@PathVariable long id) {
-        playerService.delete(id);
-        return (new ResponseEntity<>(null, HttpStatus.OK));
+    public ResponseEntity<PlayerDto> delete(@PathVariable long id) {
+        return (getResponseEntity(playerService.delete(id)));
     }
-    
+
+    private ResponseEntity<PlayerDto> getResponseEntity(PlayerDto playerDto) {
+        return (new ResponseEntity<>(playerDto, playerDto != null ? HttpStatus.OK : HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Helper method to create a huge amount of players.
+     */
     @RequestMapping(value = "/createData", method = RequestMethod.GET)
     public void createData() {
-        long start = System.currentTimeMillis()/1000;
-        for(long i=start;i<=(start + 1000);i++){
+        long start = System.currentTimeMillis() / 1000;
+        for (long i = start; i <= (start + 1000); i++) {
             try {
                 Thread.sleep(20);
             } catch (InterruptedException ex) {

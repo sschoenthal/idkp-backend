@@ -5,7 +5,7 @@ package net.oneglobe.idkp.common.notify.client;
  * the change type.
  *
  * @author Stefan Schönthal
- * @param <T>
+ * @param <T> Type of element
  */
 public class ChangeDto<T> {
 
